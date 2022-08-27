@@ -8,10 +8,12 @@ import {
   HttpStatus,
   NotFoundException,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Query,
 } from '@nestjs/common';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { CoffeesService } from './coffees.service';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
@@ -21,13 +23,12 @@ export class CoffeesController {
   constructor(private readonly coffeeService: CoffeesService) {}
 
   @Get()
-  findAll(@Query() paginationQuery) {
-    // const { limit, offset } = paginationQuery;
-    return this.coffeeService.findAll();
+  findAll(@Query() paginationQuery: PaginationQueryDto) {
+    return this.coffeeService.findAll(paginationQuery);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseIntPipe) id: number) {
     const coffee = this.coffeeService.findOne(id);
     if (!coffee) {
       throw new NotFoundException(`coffee ${id} not found`);
@@ -41,12 +42,12 @@ export class CoffeesController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() body: UpdateCoffeeDto) {
+  update(@Param('id', ParseIntPipe) id: number, @Body() body: UpdateCoffeeDto) {
     return this.coffeeService.update(id, body);
   }
 
   @Delete(':id')
-  delete(@Param('id') id: string) {
+  delete(@Param('id', ParseIntPipe) id: number) {
     return this.coffeeService.remove(id);
   }
 }
