@@ -13,10 +13,16 @@ export class Coffee {
   id: number;
 
   @Column()
-  name: string;
+  title: string;
 
   @Column()
-  brand: string;
+  description: string;
+
+  @Column()
+  brands: string;
+
+  @Column({ default: 0 })
+  recommendations: number;
 
   @JoinTable() // 👈 Join the 2 tables - only the OWNER-side does this
   @ManyToMany(
