@@ -13,13 +13,10 @@ export class Coffee {
   id: number;
 
   @Column()
-  title: string;
+  name: string;
 
   @Column()
-  description: string;
-
-  @Column()
-  brands: string;
+  brand: string;
 
   @Column({ default: 0 })
   recommendations: number;
