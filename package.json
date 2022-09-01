@@ -21,7 +21,10 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "create:migration": "yarn build && npx typeorm migration:generate src/migrations/SchemaSync -d dist/typeorm-cli.config",
     "run:migration": "npx typeorm migration:run -d dist/typeorm-cli.config",
-    "revert:migration": "npx typeorm migration:revert -d dist/typeorm-cli.config"
+    "revert:migration": "npx typeorm migration:revert -d dist/typeorm-cli.config",
+    "start:db": "docker compose up -d",
+    "prestart:dev": "yarn start:db",
+    "prestart": "yarn start:db"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
