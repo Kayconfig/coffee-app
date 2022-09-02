@@ -12,12 +12,16 @@ import {
   Patch,
   Post,
   Query,
+  UseInterceptors,
 } from '@nestjs/common';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
+import { WrapResponseInterceptor } from 'src/common/interceptors/wrap-response.interceptor';
 import { CoffeesService } from './coffees.service';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
+import { Coffee } from './entities/coffee.entity';
 
+@UseInterceptors(WrapResponseInterceptor)
 @Controller('coffees')
 export class CoffeesController {
   constructor(private readonly coffeeService: CoffeesService) {}
@@ -37,7 +41,7 @@ export class CoffeesController {
   }
 
   @Post()
-  create(@Body() body: CreateCoffeeDto) {
+  create(@Body() body: CreateCoffeeDto): Promise<Coffee> {
     return this.coffeeService.create(body);
   }
 
