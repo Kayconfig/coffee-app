@@ -9,7 +9,6 @@ import * as request from 'supertest';
 import { CoffeesModule } from '../../src/coffees/coffees.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CreateCoffeeDto } from 'src/coffees/dto/create-coffee.dto';
-import { CoffeesService } from 'src/coffees/coffees.service';
 import { UpdateCoffeeDto } from 'src/coffees/dto/update-coffee.dto';
 
 describe('[Feature] Coffees - /coffees', () => {
