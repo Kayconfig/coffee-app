@@ -21,6 +21,7 @@ async function bootstrap() {
     .setTitle('Coffee')
     .setDescription('Coffee application')
     .setVersion('1.0')
+    .addTag('/coffees', 'Manage Coffees.')
     .build();
 
   const document = SwaggerModule.createDocument(app, options);

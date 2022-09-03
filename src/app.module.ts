@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+
 import { CoffeesModule } from './coffees/coffees.module';
 import { typeOrmConfig } from './config';
 import { CommonModule } from './common/common.module';
@@ -12,7 +11,7 @@ import { CommonModule } from './common/common.module';
     TypeOrmModule.forRootAsync(typeOrmConfig),
     CommonModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
