@@ -3,14 +3,18 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   NotFoundException,
   Param,
   ParseIntPipe,
   Patch,
   Post,
   Query,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ApiNotFoundResponse, ApiTags } from '@nestjs/swagger';
+import { WrapResponseInterceptor } from '../common/interceptors/wrap-response.interceptor';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 
 import { CoffeesService } from './coffees.service';
@@ -18,6 +22,7 @@ import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 
 @ApiTags('/coffees')
+@UseInterceptors(WrapResponseInterceptor)
 @Controller('coffees')
 export class CoffeesController {
   constructor(private readonly coffeeService: CoffeesService) {}
@@ -53,8 +58,9 @@ export class CoffeesController {
   }
 
   @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
   @ApiNotFoundResponse({ description: 'Coffee #{id} not found!' })
   async delete(@Param('id', ParseIntPipe) id: number) {
-    return this.coffeeService.remove(id);
+    await this.coffeeService.remove(id);
   }
 }
